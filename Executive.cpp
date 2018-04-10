@@ -9,7 +9,6 @@ Executive::Executive()
 	m_Keyword = "";
 	m_Hfrequency = 0; //used to find highest frequency of factors
 	m_Length = 0;
-	m_alphabet = new char[26]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 	m_Frequency = new float[26]{8.2,1.5,2.8,4.3,12.7,2.2,2.0,6.1,7.0,0.2,0.8,4.0,2.4,6.7,7.5,1.9,0.1,6.0,6.3,9.1,2.8,1.0,2.4,0.2,2.0,0.1};
 	m_CharArray = new char[m_size];
 	m_ShiftFrequency = new double[26];
@@ -31,7 +30,6 @@ Executive::Executive()
 Executive::~Executive()
 {
 	delete [] m_CharArray;
-	delete [] m_alphabet;
 	delete [] m_ShiftArray;
 	delete [] m_ShiftFrequency;
 	delete [] m_CipherFrequency;
@@ -218,7 +216,7 @@ void Executive::FrequencyAnalysis()
 			m_ShiftFrequency[25]=temp;
 			TotFreq = 0;
 		}
-		m_Keyword+=m_alphabet[shift];
+		m_Keyword+=(shift+97);
 		m_IntKey[index]=shift;
 		index++;
 		shift = 0;
@@ -276,8 +274,8 @@ void Executive::Decrypt()
 			{
 				temp = 26+temp;
 			}
-			cout<<m_alphabet[temp];
-			OutFile<<m_alphabet[temp];
+			cout<<char(temp+97);
+			OutFile<<char(temp+97);
 		}
 		i+=m_Length;
 	}
