@@ -76,48 +76,44 @@ void Executive::Search()
 		//runs through entire array minus the size of the string it's checking
 		for(int i = check2; check2-check1<=m_size-i;i++)
 		{
-			if(m_CharArray[check1]==m_CharArray[i])
+			//check rest of string
+			while(m_CharArray[check1+k]==m_CharArray[i+k])
 			{
-				//check rest of string
-				while(m_CharArray[check1+k]==m_CharArray[i+k])
+				k++;
+				if(k==check2-check1)
 				{
-					k++;
-					if(k==check2-check1)
+					//will only consider the factors of strings with lengths of three or greater
+					//prints repeating string
+					/*
+					cout<<"String found: ";
+					for(int l = 0; l<k;l++)
 					{
-//will only consider the factors of strings with lengths of three or greater
-						//prints repeating string
-						/*
-						cout<<"String found: ";
-						for(int l = 0; l<k;l++)
-						{
-							cout<<m_CharArray[check1+l];
-						}
-						cout<<endl;
-						*/
-						Factor(i-check1);
-//length inbetween equals (i-check1-1) this means that we must factor the number (i-check1)
-//insert the three lines of the if(found) statement here to cancel all comparisons of the same string or sub-strings
-						k = 0;
-						Found = true;
-						break;
+						cout<<m_CharArray[check1+l];
 					}
-					else if(m_CharArray[check1+k]!=m_CharArray[i+k])
-					{
-						k = 0;
-						break;
-					}
+					cout<<endl;
+					*/
+					Factor(i-check1);
+					//length inbetween equals (i-check1-1) this means that we must factor the number (i-check1)
+					//insert the three lines of the if(found) statement here to cancel all comparisons of the same string or sub-strings
+					k = 0;
+					Found = true;
+					break;
+				}
+				else if(m_CharArray[check1+k]!=m_CharArray[i+k])
+				{
+					k = 0;
+					break;
 				}
 			}
 		}
-//if the string is found it will skip all substring searches
+		//if the string is found it will skip all substring searches
 		if(Found)
 		{
 			check1=check2-1;
-			NullNum+=check2-check1-1;
 			check2 = (m_size+NullNum)/2;
 			Found = false;
 		}
-		//doesn't check length of 1 when -2
+		//doesn't check length of 1 when size=2
 		else if(check2-2>check1)
 		{
 			check2--;
@@ -132,7 +128,7 @@ void Executive::Search()
 }
 void Executive::Factor(int integer)
 {
-//does not consider or store 1 * itself
+	//does not consider or store 1 * itself
 	int temp = 2;
 	while(temp<=integer)
 	{
